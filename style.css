@@ -12,6 +12,7 @@ html,
 body {
   height: 100%;
   width: 100%;
+  overflow: hidden;
 }
 
 body {
@@ -26,30 +27,35 @@ header {
   width: 100%;
   height: 10vh;
   border-bottom: 1px solid #545454;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#logo-div {
+  text-align: center;
+  width: 50%;
 }
 
 #logo {
-  margin: auto;
-  text-align: center;
-  width: 100%;
-  height: 100%;
-  font-size: 225%;
-  letter-spacing: 0.5rem;
+  display: inline;
+  font-size: 7.5vh;
+  letter-spacing: 1vw;
 }
 
 #game {
-  height: 90%;
+  height: 90vh;
   width: 100%;
 }
 
 #board {
   background: orange;
   width: 100%;
-  height: 65%;
+  height: 65vh;
 }
 
 #keyboard {
   background: yellow;
   width: 100%;
-  height: 35%;
+  height: 35vh;
 }
