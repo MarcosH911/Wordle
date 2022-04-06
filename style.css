@@ -1,0 +1,55 @@
+@font-face {
+  font-family: "Clear Sans";
+  src: url(fonts/ClearSans-Bold.ttf);
+}
+
+@font-face {
+  font-family: "Helvetica Neue";
+  src: url(fonts/Helvetica-Neue.ttf);
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  background: #191919;
+  color: white;
+  margin: 0;
+  font-family: "Clear Sans", "Helvetica Neue", Arial, sans-serif;
+}
+
+header {
+  position: relative;
+  width: 100%;
+  height: 10vh;
+  border-bottom: 1px solid #545454;
+}
+
+#logo {
+  margin: auto;
+  text-align: center;
+  width: 100%;
+  height: 100%;
+  font-size: 225%;
+  letter-spacing: 0.5rem;
+}
+
+#game {
+  height: 90%;
+  width: 100%;
+}
+
+#board {
+  background: orange;
+  width: 100%;
+  height: 65%;
+}
+
+#keyboard {
+  background: yellow;
+  width: 100%;
+  height: 35%;
+}
