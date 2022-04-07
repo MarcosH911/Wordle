@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wordle</title>
-    <link rel="stylesheet" href="style.css"
+    <link rel="stylesheet" href="style.css" />
+    <script defer src="src/js/script.js"></script>
   </head>
   <body>
     <header>
@@ -17,61 +18,86 @@
       <div id="board">
         <table id="game-table">
           <tr>
-            <td>a</td>
-            <td>a</td>
-            <td>a</td>
-            <td></td>
-            <td></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
           </tr>
           <tr>
-            <td>a</td>
-            <td></td>
-            <td>a</td>
-            <td></td>
-            <td>a</td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
           </tr>
           <tr>
-            <td></td>
-            <td>a</td>
-            <td></td>
-            <td>a</td>
-            <td>a</td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
           </tr>
           <tr>
-            <td></td>
-            <td>a</td>
-            <td></td>
-            <td>a</td>
-            <td></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
           </tr>
           <tr>
-            <td>a</td>
-            <td></td>
-            <td>a</td>
-            <td></td>
-            <td>a</td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
           </tr>
           <tr>
-            <td></td>
-            <td>a</td>
-            <td></td>
-            <td>a</td>
-            <td></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
+            <td data-letter=""></td>
           </tr>
         </table>
       </div>
       <div id="keyboard">
         <ul>
-          <li>Q</li>
-          <li>W</li>
-          <li>E</li>
-          <li>R</li>
-          <li>T</li>
-          <li>Y</li>
-          <li>U</li>
-          <li>I</li>
-          <li>O</li>
-          <li>P</li>
+          <li data-key="q">Q</li>
+          <li data-key="w">W</li>
+          <li data-key="e">E</li>
+          <li data-key="r">R</li>
+          <li data-key="t">T</li>
+          <li data-key="y">Y</li>
+          <li data-key="u">U</li>
+          <li data-key="i">I</li>
+          <li data-key="o">O</li>
+          <li data-key="p">P</li>
+        </ul>
+        <ul>
+          <li data-key="a">A</li>
+          <li data-key="s">S</li>
+          <li data-key="d">D</li>
+          <li data-key="f">F</li>
+          <li data-key="g">G</li>
+          <li data-key="h">H</li>
+          <li data-key="j">J</li>
+          <li data-key="k">K</li>
+          <li data-key="l">L</li>
+          <li data-key="ñ">Ñ</li>
+        </ul>
+        <ul>
+          <li id="enter" data-key="Enter">Enter</li>
+          <li data-key="w">Z</li>
+          <li data-key="e">X</li>
+          <li data-key="r">C</li>
+          <li data-key="t">V</li>
+          <li data-key="y">B</li>
+          <li data-key="u">N</li>
+          <li data-key="i">M</li>
+          <li id="backspace" data-key="Backspace">
+            <img id="backspace-icon" src="src/resources/backspace.svg"
+          </li>
         </ul>
       </div>
     </div>

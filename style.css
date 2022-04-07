@@ -1,18 +1,19 @@
 @font-face {
   font-family: "Clear Sans";
-  src: url(fonts/ClearSans-Bold.ttf);
+  src: url(src/resources/fonts/ClearSans-Bold.ttf);
 }
 
 @font-face {
   font-family: "Helvetica Neue";
-  src: url(fonts/Helvetica-Neue.ttf);
+  src: url(src/resources/fonts/Helvetica-Neue.ttf);
 }
 
 html,
 body {
   height: 100%;
   width: 100%;
-  overflow: hidden;
+  /* overflow: hidden; */
+  user-select: none;
 }
 
 body {
@@ -46,6 +47,7 @@ header {
   height: 90vh;
   width: 100%;
   margin: 2vmin 0;
+  position: relative;
 }
 
 #board {
@@ -54,17 +56,12 @@ header {
   position: relative;
 }
 
-#keyboard {
-  width: 100%;
-  height: 100%;
-}
-
 table {
-  margin: auto;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+  overflow: hidden;
   border-spacing: 1vmin;
 }
 
@@ -77,18 +74,43 @@ td {
   text-transform: uppercase;
 }
 
+#keyboard {
+  width: 100%;
+  height: 26%;
+  margin: 2rem 0;
+  text-align: center;
+}
+
 ul {
+  padding: 0;
+  margin: 0.4rem;
 }
 
 li {
+  display: inline-block;
   list-style-type: none;
-  margin: 0;
-  padding: 0;
-  display: inline;
-  padding: 3.5vmin 3vmin;
+  margin: 0.1rem;
+  padding: 1rem 0;
+  width: 3rem;
   background: #545454;
-  border: 0.4vmin solid #545454;
+  border: 0.1rem solid #545454;
   border-radius: 1vmin;
-  font-size: 1.3rem;
+  font-size: 1.4rem;
   text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+}
+
+#backspace {
+  padding: 0.8rem 0 1rem 0;
+}
+
+#backspace-icon {
+  position: relative;
+  top: 0.2rem;
+  pointer-events: none;
+}
+
+#enter {
+  width: 6.7rem;
 }
