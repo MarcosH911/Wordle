@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Wordle</title>
     <link rel="stylesheet" href="style.css" />
-    <script defer src="src/js/script.js"></script>
+    <script type="module" defer src="src/js/script.js"></script>
   </head>
   <body>
     <header>
@@ -14,45 +14,46 @@
         <h1 id="logo">WORDLE</h1>
       </div>
     </header>
+    <div id="error-msg">Not in word list</div>
     <div id="game">
       <div id="board">
         <table id="game-table">
-          <tr>
+          <tr id="row-0">
             <td data-letter=""></td>
             <td data-letter=""></td>
             <td data-letter=""></td>
             <td data-letter=""></td>
             <td data-letter=""></td>
           </tr>
-          <tr>
+          <tr id="row-1">
             <td data-letter=""></td>
             <td data-letter=""></td>
             <td data-letter=""></td>
             <td data-letter=""></td>
             <td data-letter=""></td>
           </tr>
-          <tr>
+          <tr id="row-2">
             <td data-letter=""></td>
             <td data-letter=""></td>
             <td data-letter=""></td>
             <td data-letter=""></td>
             <td data-letter=""></td>
           </tr>
-          <tr>
+          <tr id="row-3">
             <td data-letter=""></td>
             <td data-letter=""></td>
             <td data-letter=""></td>
             <td data-letter=""></td>
             <td data-letter=""></td>
           </tr>
-          <tr>
+          <tr id="row-4">
             <td data-letter=""></td>
             <td data-letter=""></td>
             <td data-letter=""></td>
             <td data-letter=""></td>
             <td data-letter=""></td>
           </tr>
-          <tr>
+          <tr id="row-5">
             <td data-letter=""></td>
             <td data-letter=""></td>
             <td data-letter=""></td>
@@ -88,13 +89,13 @@
         </ul>
         <ul>
           <li id="enter" data-key="Enter">Enter</li>
-          <li data-key="w">Z</li>
-          <li data-key="e">X</li>
-          <li data-key="r">C</li>
-          <li data-key="t">V</li>
-          <li data-key="y">B</li>
-          <li data-key="u">N</li>
-          <li data-key="i">M</li>
+          <li data-key="z">Z</li>
+          <li data-key="x">X</li>
+          <li data-key="c">C</li>
+          <li data-key="v">V</li>
+          <li data-key="b">B</li>
+          <li data-key="n">N</li>
+          <li data-key="m">M</li>
           <li id="backspace" data-key="Backspace">
             <img id="backspace-icon" src="src/resources/backspace.svg"
           </li>
