@@ -81,13 +81,38 @@ const notValidWord = function () {
   });
 };
 
-const winGame = function () {};
+const winGame = function () {
+  let animationDelay = 0;
+
+  for (let i = 0; i < 5; i++) {
+    setTimeout(
+      () =>
+        tableCellElements[+i + (tableRow - 1) * 5].classList.add("flip-green"),
+      animationDelay
+    );
+    animationDelay += 100;
+  }
+
+  animationDelay = 0;
+
+  setTimeout(function () {
+    for (let i = 0; i < 5; i++) {
+      setTimeout(
+        () =>
+          tableCellElements[+i + (tableRow - 1) * 5].classList.add(
+            "win-animation"
+          ),
+        animationDelay
+      );
+      animationDelay += 100;
+    }
+  }, 1000);
+};
 
 const checkLetter = function () {
   const wordGuessArr = wordGuess.split("");
   const correctWordArr = correctWord.split("");
   const lettersInfo = {};
-  const tempRow = tableRow;
 
   wordGuessArr.forEach(function (l, i) {
     lettersInfo[l + i] = null;
@@ -146,7 +171,10 @@ const checkLetter = function () {
   for (const [i, [_, value]] of Object.entries(Object.entries(lettersInfo))) {
     if (+i === 5) return;
     setTimeout(
-      () => tableCellElements[+i + tempRow * 5].classList.add(`flip-${value}`),
+      () =>
+        tableCellElements[+i + (tableRow - 1) * 5].classList.add(
+          `flip-${value}`
+        ),
       flipDelay
     );
     flipDelay += 100;

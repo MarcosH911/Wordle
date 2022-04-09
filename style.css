@@ -164,11 +164,48 @@
   animation-fill-mode: forwards;
 }
 
+@keyframes win-animation {
+  0% {
+    top: 0;
+    background-color: green;
+    border-color: green;
+    z-index: 1;
+  }
+
+  20% {
+    top: -2rem;
+  }
+
+  40% {
+    top: 1.5rem;
+  }
+
+  60% {
+    top: -1rem;
+  }
+
+  80% {
+    top: 0.5rem;
+  }
+
+  100% {
+    top: 0;
+    background-color: green;
+    border-color: green;
+    z-index: 1;
+  }
+}
+
+.win-animation {
+  animation: win-animation 0.5s;
+  animation-fill-mode: forwards;
+}
+
 html,
 body {
   height: 100%;
   width: 100%;
-  /* overflow: hidden; */
+  overflow: hidden;
   user-select: none;
 }
 
@@ -209,7 +246,7 @@ header {
   border-radius: 0.6rem;
   top: 7.5%;
   left: 38.5%;
-  z-index: 1;
+  z-index: 2;
   opacity: 0;
 }
 
@@ -245,6 +282,7 @@ tr {
 }
 
 td {
+  position: relative;
   border: 0.4vmin solid #545454;
   height: 7vmin;
   width: 7vmin;
