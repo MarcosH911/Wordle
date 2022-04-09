@@ -16,6 +16,7 @@ let correctWord;
 
 const createCorrectWord = function () {
   correctWord = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
+  // correctWord = "folly";
 };
 
 const enterLetter = function (letter) {
@@ -52,8 +53,6 @@ const enterLetter = function (letter) {
 };
 
 const submitWord = function () {
-  console.log(wordGuess);
-
   if (!VALID_GUESSES.includes(wordGuess)) {
     notValidWord();
     return;
@@ -87,19 +86,71 @@ const winGame = function () {};
 const checkLetter = function () {
   const wordGuessArr = wordGuess.split("");
   const correctWordArr = correctWord.split("");
+  const lettersInfo = {};
+  const tempRow = tableRow;
+
+  wordGuessArr.forEach(function (l, i) {
+    lettersInfo[l + i] = null;
+  });
+
   for (let i = 0; i < 5; i++) {
     if (wordGuessArr[i] === correctWordArr[i]) {
-      tableCellElements[i + tableRow * 5].style.backgroundColor = "green";
-      tableCellElements[i + tableRow * 5].style.borderColor = "green";
+      const keyEl = keyboardEl.querySelector(
+        `li[data-key='${wordGuessArr[i]}']`
+      );
+
+      lettersInfo[wordGuessArr[i] + i] = "green";
+      keyEl.style.backgroundColor = "green";
+      keyEl.style.borderColor = "green";
+
       correctWordArr[i] = "";
+      wordGuessArr[i] = "";
     }
   }
-  for (let i = 0; i < 5; i++)
+  for (let i = 0; i < 5; i++) {
     if (correctWordArr.includes(wordGuessArr[i]) && wordGuessArr[i]) {
-      tableCellElements[i + tableRow * 5].style.backgroundColor = "yellow";
-      tableCellElements[i + tableRow * 5].style.borderColor = "yellow";
+      const keyEl = keyboardEl.querySelector(
+        `li[data-key='${wordGuessArr[i]}']`
+      );
+      if (keyEl.style.backgroundColor === "") {
+        keyEl.style.backgroundColor = "#b59f3b";
+        keyEl.style.borderColor = "#b59f3b";
+      }
+      lettersInfo[wordGuessArr[i] + i] = "yellow";
+
       correctWordArr[correctWordArr.indexOf(wordGuessArr[i])] = "";
+      wordGuessArr[i] = "";
     }
+  }
+
+  for (let i = 0; i < 5; i++) {
+    const keyEl = keyboardEl.querySelector(
+      `li[data-key='${wordGuess.charAt(i)}']`
+    );
+
+    if (
+      keyEl.style.backgroundColor === "" ||
+      keyEl.style.backgroundColor === "rgb(51, 51, 51)"
+    ) {
+      keyEl.style.backgroundColor = "#333333";
+      keyEl.style.borderColor = "#333333";
+    }
+
+    if (!lettersInfo[wordGuessArr[i]] && wordGuessArr[i]) {
+      lettersInfo[wordGuessArr[i] + i] = "grey";
+    }
+  }
+
+  let flipDelay = 0;
+
+  for (const [i, [_, value]] of Object.entries(Object.entries(lettersInfo))) {
+    if (+i === 5) return;
+    setTimeout(
+      () => tableCellElements[+i + tempRow * 5].classList.add(`flip-${value}`),
+      flipDelay
+    );
+    flipDelay += 100;
+  }
 };
 
 keyboardEl.addEventListener("click", function (e) {

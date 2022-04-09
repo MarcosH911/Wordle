@@ -12,33 +12,43 @@
   0% {
     left: 0;
   }
+
   10% {
     left: -1%;
   }
+
   20% {
     left: 1%;
   }
+
   30% {
     left: -1%;
   }
+
   40% {
     left: 1%;
   }
+
   50% {
     left: -1%;
   }
+
   60% {
     left: 1%;
   }
+
   70% {
     left: -1%;
   }
+
   80% {
     left: 1%;
   }
+
   90% {
     left: -1%;
   }
+
   100% {
     left: 0;
   }
@@ -65,6 +75,93 @@
 .fade-out {
   animation: fade-out 2s;
   animation-fill-mode: none;
+}
+
+@keyframes flip-green {
+  0% {
+    transform: rotateX(0deg);
+  }
+
+  50% {
+    transform: rotateX(90deg);
+    background-color: #191919;
+    border-color: #545454;
+  }
+
+  50.01% {
+    transform: rotateX(90deg);
+    background-color: green;
+    border-color: green;
+  }
+
+  100% {
+    transform: rotateX(0deg);
+    background-color: green;
+    border-color: green;
+  }
+}
+
+.flip-green {
+  animation: flip-green 0.5s linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes flip-yellow {
+  0% {
+    transform: rotateX(0deg);
+  }
+
+  50% {
+    transform: rotateX(90deg);
+    background-color: #191919;
+    border-color: #545454;
+  }
+
+  50.01% {
+    transform: rotateX(90deg);
+    background-color: #b59f3b;
+    border-color: #b59f3b;
+  }
+
+  100% {
+    transform: rotateX(0deg);
+    background-color: #b59f3b;
+    border-color: #b59f3b;
+  }
+}
+
+.flip-yellow {
+  animation: flip-yellow 0.5s linear;
+  animation-fill-mode: forwards;
+}
+
+@keyframes flip-grey {
+  0% {
+    transform: rotateX(0deg);
+  }
+
+  50% {
+    transform: rotateX(90deg);
+    background-color: #191919;
+    border-color: #545454;
+  }
+
+  50.01% {
+    transform: rotateX(90deg);
+    background-color: #333333;
+    border-color: #333333;
+  }
+
+  100% {
+    transform: rotateX(0deg);
+    background-color: #333333;
+    border-color: #333333;
+  }
+}
+
+.flip-grey {
+  animation: flip-grey 0.5s linear;
+  animation-fill-mode: forwards;
 }
 
 html,
