@@ -8,6 +8,19 @@ const keyboardEl = document.getElementById("keyboard");
 const tableRowElements = document.querySelectorAll("tr");
 const tableCellElements = document.querySelectorAll("td");
 const messageEl = document.getElementById("message");
+const statsModalEl = document.querySelector(".statistics-modal");
+const statsOverlayEl = document.querySelector(".statistics-overlay");
+
+const statsPlayed = document.querySelector(".statistics-played").textContent;
+const statsWinPercentage = document.querySelector(
+  ".statistics-win-percentage"
+).textContent;
+const statsCurrentStreak = document.querySelector(
+  ".statistics-current-streak"
+).textContent;
+const statsMaxStreak = document.querySelector(
+  ".statistics-max-streak"
+).textContent;
 
 const WIN_MESSAGES = ["Incredible!", "Genius!", "Amazing!"];
 
@@ -18,7 +31,6 @@ let correctWord;
 
 const createCorrectWord = function () {
   correctWord = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
-  // correctWord = "folly";
 };
 
 const enterLetter = function (letter) {
@@ -97,6 +109,11 @@ const notValidWord = function () {
 
 const showPlayAgain = function () {};
 
+const showStatistics = function () {
+  statsModalEl.classList.remove("hidden");
+  statsOverlayEl.classList.remove("hidden");
+};
+
 const looseGame = function () {
   document.removeEventListener("keydown", keyboardCallback);
   keyboardEl.removeEventListener("click", screenKeyboardCallback);
@@ -104,7 +121,7 @@ const looseGame = function () {
   messageEl.textContent = correctWord;
   messageEl.style.opacity = 100;
 
-  showPlayAgain();
+  setTimeout(() => showStatistics(), 2500);
 };
 
 const winGame = function () {
@@ -146,7 +163,7 @@ const winGame = function () {
     }
   }, 1000);
 
-  setTimeout(() => showPlayAgain(), 2500);
+  setTimeout(() => showStatistics(), 2500);
 };
 
 const checkWord = function () {
