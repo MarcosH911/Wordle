@@ -201,6 +201,30 @@
   animation-fill-mode: forwards;
 }
 
+@keyframes put-letter {
+  0% {
+    border: none;
+  }
+
+  50% {
+    border: none;
+    box-shadow: 0.4vmin 0.4vmin 0px 0px #191919,
+      -0.4vmin -0.4vmin 0px 0px #191919, 0.5vmin 0.5vmin 0px 0px white,
+      -0.5vmin -0.5vmin 0px 0px white, -0.4vmin 0.4vmin 0px 0px #191919,
+      0.4vmin -0.4vmin 0px 0px #191919, -0.5vmin 0.5vmin 0px 0px white,
+      0.5vmin -0.5vmin 0px 0px white;
+  }
+
+  100% {
+    border-color: white;
+  }
+}
+
+.put-letter {
+  animation: put-letter 0.1s;
+  animation-fill-mode: forwards;
+}
+
 html,
 body {
   height: 100%;
@@ -236,7 +260,7 @@ header {
   letter-spacing: 0.5rem;
 }
 
-#error-msg {
+#message {
   position: fixed;
   background-color: white;
   color: #545454;
