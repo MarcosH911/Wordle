@@ -221,6 +221,25 @@
   animation-fill-mode: forwards;
 }
 
+.green {
+  background-color: green;
+  border-color: green;
+}
+
+.yellow {
+  background-color: #b59f3b;
+  border-color: #b59f3b;
+}
+
+.grey {
+  background-color: #333333;
+  border-color: #333333;
+}
+
+.white-border {
+  border-color: white;
+}
+
 html,
 body {
   height: 100%;
@@ -387,14 +406,16 @@ li {
 
 #statistics-title {
   position: relative;
-  top: -7%;
-  font-size: 2rem;
+  top: -4%;
+  font-size: 4vmin;
 }
 
 #statistics {
+  position: relative;
   display: flex;
   align-items: bottom;
   justify-content: center;
+  top: 1%;
 }
 
 .statistics-container {
@@ -404,20 +425,20 @@ li {
 }
 
 .statistics-label {
-  font-size: 0.8rem;
+  font-size: 1.5vmin;
 }
 
 .statistics-played,
 .statistics-win-percentage,
 .statistics-current-streak,
 .statistics-max-streak {
-  font-size: 2.5rem;
+  font-size: 4vmin;
 }
 
 #statistics-distribution {
   position: relative;
   top: 7%;
-  font-size: 1.9rem;
+  font-size: 4vmin;
 }
 
 #distribution-big-container {
@@ -450,4 +471,38 @@ li {
   font-size: 1.2rem;
   padding: 0.2rem 0.7rem;
   text-align: right;
+}
+
+#play-again-container {
+  position: relative;
+  bottom: -15%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 20%;
+}
+
+#play-again {
+  background-color: green;
+  padding: min(2rem, 10%);
+  max-width: 12rem;
+  max-height: 1rem;
+  border-radius: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  border: 1px solid #545454;
+  cursor: pointer;
+}
+
+#play-again-icon {
+  width: 25%;
+  height: 25%;
+  float: left;
+}
+
+#play-again-label {
+  font-family: "Clear Sans", Arial, sans-serif;
+  font-size: min(1.7em, 4.5vmin);
 }

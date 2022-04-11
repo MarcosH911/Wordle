@@ -10,6 +10,7 @@ const tableCellElements = document.querySelectorAll("td");
 const messageEl = document.getElementById("message");
 const statsModalEl = document.querySelector(".statistics-modal");
 const statsOverlayEl = document.querySelector(".statistics-overlay");
+const playAgainEl = document.getElementById("play-again");
 
 const statsPlayedEl = document.querySelector(".statistics-played");
 const statsWinPercentageEl = document.querySelector(
@@ -25,15 +26,62 @@ const distributionCounts = document.querySelectorAll(".distribution-count");
 
 const WIN_MESSAGES = ["Incredible!", "Genius!", "Amazing!"];
 
-let tableRow = 0;
-let tableCell = 0;
-let wordGuess = "";
+let tableRow;
+let tableCell;
+let wordGuess;
 let correctWord;
+
+const keyboardCallback = function (e) {
+  if (!VALID_INPUTS.includes(e.key.toLowerCase())) return;
+
+  enterLetter(e.key.toLowerCase());
+};
+
+const screenKeyboardCallback = function (e) {
+  const keyEl = e.target.closest("li");
+
+  if (!keyEl) return;
+
+  const key = keyEl.dataset.key;
+  enterLetter(key.toLowerCase);
+};
 
 const startGame = function () {
   correctWord = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
+
+  tableRow = 0;
+  tableCell = 0;
+  wordGuess = "";
+
   window.localStorage.removeItem("board");
   window.localStorage.setItem("solution", correctWord);
+
+  statsModalEl.classList.add("hidden");
+  statsOverlayEl.classList.add("hidden");
+
+  tableCellElements.forEach((ele) => {
+    ele.classList.remove("flip-green");
+    ele.classList.remove("flip-yellow");
+    ele.classList.remove("flip-grey");
+    ele.classList.remove("win-animation");
+    ele.classList.remove("white-border");
+  });
+
+  VALID_INPUTS.forEach((word) => {
+    keyboardEl
+      .querySelector(`li[data-key='${word}']`)
+      .classList.remove("green");
+    keyboardEl
+      .querySelector(`li[data-key='${word}']`)
+      .classList.remove("yellow");
+    keyboardEl.querySelector(`li[data-key='${word}']`).classList.remove("grey");
+  });
+
+  tableCellElements.forEach((ele) => (ele.textContent = ""));
+
+  keyboardEl.addEventListener("click", screenKeyboardCallback);
+
+  document.addEventListener("keydown", keyboardCallback);
 };
 
 const enterLetter = function (letter) {
@@ -114,11 +162,6 @@ const notValidWord = function () {
   });
 };
 
-const showPlayAgain = function () {};
-
-// statsModalEl.classList.remove("hidden");
-// statsOverlayEl.classList.remove("hidden");
-
 const updateStatistics = function () {
   const board = JSON.parse(localStorage.getItem("board")) || [];
   const statistics = JSON.parse(localStorage.getItem("statistics")) || {
@@ -144,7 +187,7 @@ const updateStatistics = function () {
   return statistics;
 };
 
-const showStatistics = function (statistics) {
+const showEndScreen = function (statistics) {
   statsModalEl.classList.remove("hidden");
   statsOverlayEl.classList.remove("hidden");
 
@@ -168,8 +211,9 @@ const showStatistics = function (statistics) {
     }%`;
     if (statistics.guesses[i + 1] !== 0) bar.style.backgroundColor = "#648c50";
   });
-};
 
+  playAgainEl.addEventListener("click", startGame);
+};
 const gameEnd = function (message) {
   document.removeEventListener("keydown", keyboardCallback);
   keyboardEl.removeEventListener("click", screenKeyboardCallback);
@@ -184,7 +228,7 @@ const gameEnd = function (message) {
     });
   }, 1000);
 
-  setTimeout(() => showStatistics(statistics), 2500);
+  setTimeout(() => showEndScreen(statistics), 2500);
 };
 
 const getGamesPlayed = function (statistics) {
@@ -249,8 +293,7 @@ const checkWord = function () {
       );
 
       lettersInfo[wordGuessArr[i] + i] = "green";
-      keyEl.style.backgroundColor = "green";
-      keyEl.style.borderColor = "green";
+      keyEl.classList.add("green");
 
       correctWordArr[i] = "";
       wordGuessArr[i] = "";
@@ -261,9 +304,8 @@ const checkWord = function () {
       const keyEl = keyboardEl.querySelector(
         `li[data-key='${wordGuessArr[i]}']`
       );
-      if (keyEl.style.backgroundColor === "") {
-        keyEl.style.backgroundColor = "#b59f3b";
-        keyEl.style.borderColor = "#b59f3b";
+      if (!keyEl.classList.contains("green")) {
+        keyEl.classList.add("yellow");
       }
       lettersInfo[wordGuessArr[i] + i] = "yellow";
 
@@ -278,11 +320,10 @@ const checkWord = function () {
     );
 
     if (
-      keyEl.style.backgroundColor === "" ||
-      keyEl.style.backgroundColor === "rgb(51, 51, 51)"
+      !keyEl.classList.contains("green") &&
+      !keyEl.classList.contains("yellow")
     ) {
-      keyEl.style.backgroundColor = "#333333";
-      keyEl.style.borderColor = "#333333";
+      keyEl.classList.add("grey");
     }
 
     if (!lettersInfo[wordGuessArr[i]] && wordGuessArr[i]) {
@@ -292,39 +333,19 @@ const checkWord = function () {
 
   let flipDelay = 0;
 
-  for (const [i, [_, value]] of Object.entries(Object.entries(lettersInfo))) {
+  for (const [i, [_, color]] of Object.entries(Object.entries(lettersInfo))) {
     if (+i === 5) return;
     setTimeout(() => {
-      tableCellElements[+i + (tableRow - 1) * 5].style.borderColor = "white";
+      tableCellElements[+i + (tableRow - 1) * 5].classList.add("white-border");
       tableCellElements[+i + (tableRow - 1) * 5].classList.remove("put-letter");
 
-      tableCellElements[+i + (tableRow - 1) * 5].classList.add(`flip-${value}`);
+      tableCellElements[+i + (tableRow - 1) * 5].classList.add(`flip-${color}`);
     }, flipDelay);
     flipDelay += 100;
   }
 };
 
-const screenKeyboardCallback = function (e) {
-  const keyEl = e.target.closest("li");
-
-  if (!keyEl) return;
-
-  const key = keyEl.dataset.key;
-  enterLetter(key.toLowerCase);
-};
-
-keyboardEl.addEventListener("click", screenKeyboardCallback);
-
-const keyboardCallback = function (e) {
-  if (!VALID_INPUTS.includes(e.key.toLowerCase())) return;
-
-  enterLetter(e.key.toLowerCase());
-};
-
-document.addEventListener("keydown", keyboardCallback);
-
 const init = function () {
   startGame();
-  console.log(correctWord);
 };
 init();
