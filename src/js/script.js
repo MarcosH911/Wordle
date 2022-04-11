@@ -11,16 +11,14 @@ const messageEl = document.getElementById("message");
 const statsModalEl = document.querySelector(".statistics-modal");
 const statsOverlayEl = document.querySelector(".statistics-overlay");
 
-const statsPlayed = document.querySelector(".statistics-played").textContent;
-const statsWinPercentage = document.querySelector(
+const statsPlayedEl = document.querySelector(".statistics-played");
+const statsWinPercentageEl = document.querySelector(
   ".statistics-win-percentage"
-).textContent;
-const statsCurrentStreak = document.querySelector(
+);
+const statsCurrentStreakEl = document.querySelector(
   ".statistics-current-streak"
-).textContent;
-const statsMaxStreak = document.querySelector(
-  ".statistics-max-streak"
-).textContent;
+);
+const statsMaxStreakEl = document.querySelector(".statistics-max-streak");
 
 const WIN_MESSAGES = ["Incredible!", "Genius!", "Amazing!"];
 
@@ -29,14 +27,16 @@ let tableCell = 0;
 let wordGuess = "";
 let correctWord;
 
-const createCorrectWord = function () {
+const startGame = function () {
   correctWord = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
+  window.localStorage.removeItem("board");
+  window.localStorage.setItem("solution", correctWord);
 };
 
 const enterLetter = function (letter) {
   let cell = tableCellElements[tableCell + tableRow * 5];
 
-  if (letter === "Enter") {
+  if (letter === "enter") {
     if (tableCell !== 5) {
       notValidWord();
       return;
@@ -46,7 +46,7 @@ const enterLetter = function (letter) {
     return;
   }
 
-  if (letter === "Backspace") {
+  if (letter === "backspace") {
     if (tableCell <= 0) return;
 
     tableCell--;
@@ -75,6 +75,10 @@ const submitWord = function () {
     notValidWord();
     return;
   }
+
+  const board = JSON.parse(localStorage.getItem("board")) || [];
+  board.push(wordGuess);
+  localStorage.setItem("board", JSON.stringify(board));
 
   if (wordGuess === correctWord) {
     winGame();
@@ -109,35 +113,68 @@ const notValidWord = function () {
 
 const showPlayAgain = function () {};
 
-const showStatistics = function () {
+// statsModalEl.classList.remove("hidden");
+// statsOverlayEl.classList.remove("hidden");
+
+const showStatistics = function (statistics) {
   statsModalEl.classList.remove("hidden");
   statsOverlayEl.classList.remove("hidden");
+
+  let gamesPlayed = 0;
+  for (const x in statistics.guesses) {
+    gamesPlayed += statistics.guesses[x];
+  }
+
+  statsPlayedEl.textContent = gamesPlayed;
+  statsWinPercentageEl.textContent = (
+    ((gamesPlayed - statistics.guesses.fail) / gamesPlayed) *
+    100
+  ).toFixed(0);
+  statsCurrentStreakEl.textContent = statistics.currentStreak;
+  statsMaxStreakEl.textContent = statistics.maxStreak;
 };
 
-const looseGame = function () {
+const gameEnd = function (message) {
   document.removeEventListener("keydown", keyboardCallback);
   keyboardEl.removeEventListener("click", screenKeyboardCallback);
 
-  messageEl.textContent = correctWord;
-  messageEl.style.opacity = 100;
+  const board = JSON.parse(localStorage.getItem("board")) || [];
+  const statistics = JSON.parse(localStorage.getItem("statistics")) || {
+    guesses: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, fail: 0 },
+    currentStreak: 0,
+    maxStreak: 0,
+  };
 
-  setTimeout(() => showStatistics(), 2500);
-};
-
-const winGame = function () {
-  let animationDelay = 0;
-
-  document.removeEventListener("keydown", keyboardCallback);
-  keyboardEl.removeEventListener("click", screenKeyboardCallback);
+  if (board.length === 6 && board[5] !== correctWord) {
+    statistics.guesses.fail++;
+    statistics.currentStreak = 0;
+  } else {
+    statistics.guesses[board.length]++;
+    statistics.currentStreak++;
+    statistics.maxStreak =
+      statistics.maxStreak < statistics.currentStreak
+        ? statistics.currentStreak
+        : statistics.maxStreak;
+  }
+  localStorage.setItem("statistics", JSON.stringify(statistics));
 
   setTimeout(function () {
-    messageEl.textContent =
-      WIN_MESSAGES[Math.floor(Math.random() * WIN_MESSAGES.length)];
+    messageEl.textContent = message;
     messageEl.classList.add("fade-out");
     messageEl.addEventListener("animationend", function () {
       messageEl.classList.remove("fade-out");
     });
   }, 1000);
+
+  setTimeout(() => showStatistics(statistics), 2500);
+};
+
+const looseGame = function () {
+  gameEnd(correctWord);
+};
+
+const winAnimation = function () {
+  let animationDelay = 0;
 
   for (let i = 0; i < 5; i++) {
     setTimeout(
@@ -162,8 +199,12 @@ const winGame = function () {
       animationDelay += 100;
     }
   }, 1000);
+};
 
-  setTimeout(() => showStatistics(), 2500);
+const winGame = function () {
+  gameEnd(WIN_MESSAGES[Math.floor(Math.random() * WIN_MESSAGES.length)]);
+
+  winAnimation();
 };
 
 const checkWord = function () {
@@ -243,21 +284,21 @@ const screenKeyboardCallback = function (e) {
   if (!keyEl) return;
 
   const key = keyEl.dataset.key;
-  enterLetter(key);
+  enterLetter(key.toLowerCase);
 };
 
 keyboardEl.addEventListener("click", screenKeyboardCallback);
 
 const keyboardCallback = function (e) {
-  if (!VALID_INPUTS.includes(e.key)) return;
+  if (!VALID_INPUTS.includes(e.key.toLowerCase())) return;
 
-  enterLetter(e.key);
+  enterLetter(e.key.toLowerCase());
 };
 
 document.addEventListener("keydown", keyboardCallback);
 
 const init = function () {
-  createCorrectWord();
+  startGame();
   console.log(correctWord);
 };
 init();

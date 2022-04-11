@@ -26,6 +26,6 @@ export const VALID_INPUTS = [
   "b",
   "n",
   "m",
-  "Enter",
-  "Backspace",
+  "enter",
+  "backspace",
 ];
