@@ -377,7 +377,7 @@ li {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(5px);
+  backdrop-filter: blur(2px);
   z-index: 5;
 }
 
@@ -425,9 +425,29 @@ li {
   top: 12%;
   width: 100%;
   height: 40%;
+  font-family: Arial, sans-serif;
 }
 
 .distribution-container {
   width: 100%;
   height: 16.66%;
+  display: flex;
+  text-align: left;
+  align-items: center;
+}
+
+.distribution-label {
+  font-size: 1.5rem;
+  margin-right: 1rem;
+}
+
+.distribution-bar {
+  background-color: #545454;
+}
+
+.distribution-count {
+  font-weight: bold;
+  font-size: 1.2rem;
+  padding: 0.2rem 0.7rem;
+  text-align: right;
 }

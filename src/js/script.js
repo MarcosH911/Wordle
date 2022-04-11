@@ -20,6 +20,9 @@ const statsCurrentStreakEl = document.querySelector(
 );
 const statsMaxStreakEl = document.querySelector(".statistics-max-streak");
 
+const distributionBars = document.querySelectorAll(".distribution-bar");
+const distributionCounts = document.querySelectorAll(".distribution-count");
+
 const WIN_MESSAGES = ["Incredible!", "Genius!", "Amazing!"];
 
 let tableRow = 0;
@@ -116,28 +119,7 @@ const showPlayAgain = function () {};
 // statsModalEl.classList.remove("hidden");
 // statsOverlayEl.classList.remove("hidden");
 
-const showStatistics = function (statistics) {
-  statsModalEl.classList.remove("hidden");
-  statsOverlayEl.classList.remove("hidden");
-
-  let gamesPlayed = 0;
-  for (const x in statistics.guesses) {
-    gamesPlayed += statistics.guesses[x];
-  }
-
-  statsPlayedEl.textContent = gamesPlayed;
-  statsWinPercentageEl.textContent = (
-    ((gamesPlayed - statistics.guesses.fail) / gamesPlayed) *
-    100
-  ).toFixed(0);
-  statsCurrentStreakEl.textContent = statistics.currentStreak;
-  statsMaxStreakEl.textContent = statistics.maxStreak;
-};
-
-const gameEnd = function (message) {
-  document.removeEventListener("keydown", keyboardCallback);
-  keyboardEl.removeEventListener("click", screenKeyboardCallback);
-
+const updateStatistics = function () {
   const board = JSON.parse(localStorage.getItem("board")) || [];
   const statistics = JSON.parse(localStorage.getItem("statistics")) || {
     guesses: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0, 6: 0, fail: 0 },
@@ -156,7 +138,43 @@ const gameEnd = function (message) {
         ? statistics.currentStreak
         : statistics.maxStreak;
   }
+
   localStorage.setItem("statistics", JSON.stringify(statistics));
+
+  return statistics;
+};
+
+const showStatistics = function (statistics) {
+  statsModalEl.classList.remove("hidden");
+  statsOverlayEl.classList.remove("hidden");
+
+  const gamesPlayed = getGamesPlayed(statistics);
+
+  statsPlayedEl.textContent = gamesPlayed;
+  statsWinPercentageEl.textContent = (
+    ((gamesPlayed - statistics.guesses.fail) / gamesPlayed) *
+    100
+  ).toFixed(0);
+  statsCurrentStreakEl.textContent = statistics.currentStreak;
+  statsMaxStreakEl.textContent = statistics.maxStreak;
+
+  distributionCounts.forEach((count, i) => {
+    count.textContent = statistics.guesses[i + 1];
+  });
+
+  distributionBars.forEach((bar, i) => {
+    bar.style.paddingRight = `${
+      (statistics.guesses[i + 1] / gamesPlayed) * 100
+    }%`;
+    if (statistics.guesses[i + 1] !== 0) bar.style.backgroundColor = "#648c50";
+  });
+};
+
+const gameEnd = function (message) {
+  document.removeEventListener("keydown", keyboardCallback);
+  keyboardEl.removeEventListener("click", screenKeyboardCallback);
+
+  const statistics = updateStatistics();
 
   setTimeout(function () {
     messageEl.textContent = message;
@@ -167,6 +185,14 @@ const gameEnd = function (message) {
   }, 1000);
 
   setTimeout(() => showStatistics(statistics), 2500);
+};
+
+const getGamesPlayed = function (statistics) {
+  let gamesPlayed = 0;
+  for (const label in statistics.guesses) {
+    gamesPlayed += statistics.guesses[label];
+  }
+  return gamesPlayed;
 };
 
 const looseGame = function () {
