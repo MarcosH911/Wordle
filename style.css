@@ -279,6 +279,7 @@ header {
   position: fixed;
   background-color: white;
   color: #545454;
+  font-size: 2vmin;
   width: 20%;
   text-align: center;
   padding: 1.5%;

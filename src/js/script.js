@@ -43,7 +43,7 @@ const screenKeyboardCallback = function (e) {
   if (!keyEl) return;
 
   const key = keyEl.dataset.key;
-  enterLetter(key.toLowerCase);
+  enterLetter(key.toLowerCase());
 };
 
 const startGame = function () {
