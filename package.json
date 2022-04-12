@@ -1,10 +1,11 @@
 {
   "name": "wordle",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Wordle Game",
+  "default": "index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "parcel index.html",
+    "build": "parcel build index.html --dist-dir ./dist"
   },
   "repository": {
     "type": "git",
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/MarcosH911/Wordle/issues"
   },
-  "homepage": "https://github.com/MarcosH911/Wordle#readme"
+  "homepage": "https://github.com/MarcosH911/Wordle#readme",
+  "devDependencies": {
+    "parcel": "^2.4.1"
+  }
 }
