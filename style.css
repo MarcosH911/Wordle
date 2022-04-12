@@ -223,17 +223,14 @@
 
 .green {
   background-color: green;
-  border-color: green;
 }
 
 .yellow {
   background-color: #b59f3b;
-  border-color: #b59f3b;
 }
 
 .grey {
   background-color: #333333;
-  border-color: #333333;
 }
 
 .white-border {
@@ -295,6 +292,10 @@ header {
   width: 100%;
   margin: 2vmin 0;
   position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 #board {
@@ -315,6 +316,7 @@ table {
   border-spacing: 1vmin;
   bottom: 0;
   height: 100%;
+  width: 100%;
 }
 
 tr {
@@ -333,43 +335,41 @@ td {
 
 #keyboard {
   position: sticky;
-  width: 100%;
+  width: min(calc(100% - 0.5rem), 32rem);
+  margin: 0.5rem;
   text-align: center;
   bottom: 0;
 }
 
 ul {
   padding: 0;
-  margin: 0.4rem;
+  margin: 0 0 0.4rem 0;
+  width: 100%;
+  display: flex;
+  touch-action: manipulation;
 }
 
 li {
-  display: inline-block;
   list-style-type: none;
   margin: 0.1rem;
-  padding: 1rem 0;
-  width: 3rem;
+  padding: 0;
   background: #545454;
-  border: 0.1rem solid #545454;
   border-radius: 1vmin;
-  font-size: 1.4rem;
+  height: 3.7rem;
   text-transform: uppercase;
-  text-align: center;
   cursor: pointer;
-}
-
-#backspace {
-  padding: 1rem 0;
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 #backspace-icon {
-  position: relative;
-  top: 0.2rem;
   pointer-events: none;
 }
 
 #enter {
-  width: 6.7rem;
+  padding: 0 2.5%;
 }
 
 .statistics-modal {
