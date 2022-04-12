@@ -378,13 +378,20 @@ li {
   height: 70%;
 
   background-color: #191919;
-  padding: 3rem;
   border: 1px solid #333333;
   border-radius: 5px;
   box-shadow: 0 4px 23px 0 rgba(0, 0, 0, 0.2);
   z-index: 10;
   font-family: "Clear Sans", Arial, sans-serif;
   text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+  padding: 5vh 5vw;
+  width: min(80vw, 30rem);
+  height: auto;
 }
 
 .statistics-overlay {
@@ -404,39 +411,43 @@ li {
 
 #statistics-title {
   position: relative;
-  top: -4%;
-  font-size: 4vmin;
+  font-size: 2rem;
+  margin: 0 0 2vh 0;
 }
 
 #statistics {
   position: relative;
   display: flex;
   align-items: bottom;
-  justify-content: center;
-  top: 1%;
+  justify-content: space-around;
+  flex-grow: 1;
+  width: 100%;
+  margin: 0 0 4vh 0;
 }
 
 .statistics-container {
   float: left;
-  width: 20%;
+  /* width: 20%; */
   font-family: Arial, sans-serif;
+  margin: 0 0.5rem;
 }
 
 .statistics-label {
-  font-size: 1.5vmin;
+  font-size: 0.8rem;
 }
 
 .statistics-played,
 .statistics-win-percentage,
 .statistics-current-streak,
 .statistics-max-streak {
-  font-size: 4vmin;
+  font-size: 2rem;
 }
 
 #statistics-distribution {
   position: relative;
   top: 7%;
-  font-size: 4vmin;
+  font-size: 1.8rem;
+  margin: 0 0 2vh 0;
 }
 
 #distribution-big-container {
@@ -445,6 +456,7 @@ li {
   width: 100%;
   height: 40%;
   font-family: Arial, sans-serif;
+  margin: 0 0 2vh 0;
 }
 
 .distribution-container {
@@ -453,15 +465,13 @@ li {
   display: flex;
   text-align: left;
   align-items: center;
+  flex-grow: 1;
+  margin: 0 0 1vmin 0;
 }
 
 .distribution-label {
   font-size: 1.5rem;
   margin-right: 1rem;
-}
-
-.distribution-bar {
-  background-color: #545454;
 }
 
 .distribution-count {
@@ -477,6 +487,7 @@ li {
   display: flex;
   align-items: center;
   justify-content: center;
+  flex-grow: 1;
   width: 100%;
   height: 20%;
 }
@@ -490,6 +501,7 @@ li {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  flex-grow: 1;
   border: 1px solid #545454;
   cursor: pointer;
 }
@@ -502,5 +514,6 @@ li {
 
 #play-again-label {
   font-family: "Clear Sans", Arial, sans-serif;
-  font-size: min(1.7em, 4.5vmin);
+  font-size: 1.7rem;
+  margin: 0 0 0 0.5rem;
 }

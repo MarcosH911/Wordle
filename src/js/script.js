@@ -206,9 +206,9 @@ const showEndScreen = function (statistics) {
   });
 
   distributionBars.forEach((bar, i) => {
-    bar.style.paddingLeft = `${
-      (statistics.guesses[i + 1] / gamesPlayed) * 85
-    }%`;
+    bar.style.paddingLeft = `calc(${
+      (statistics.guesses[i + 1] / gamesPlayed) * 95
+    }% - 4.25rem)`;
     if (statistics.guesses[i + 1] !== 0) bar.style.backgroundColor = "#648c50";
     else bar.style.backgroundColor = "#333333";
   });
