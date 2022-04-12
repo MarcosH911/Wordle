@@ -263,7 +263,7 @@ header {
 
 #logo-div {
   text-align: center;
-  width: 50%;
+  width: 100%;
 }
 
 #logo {
@@ -288,9 +288,8 @@ header {
 }
 
 #game {
-  height: 90vh;
+  height: calc(100% - 3.25rem);
   width: 100%;
-  margin: 2vmin 0;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -305,18 +304,15 @@ header {
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-grow: 1;
 }
 
 table {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-grow: 1;
+  width: min(90vmin, 50vh);
+  height: min(108vmin, 60vh);
   overflow: hidden;
-  border-spacing: 1vmin;
+  border-spacing: min(2vmin, 0.5rem);
   bottom: 0;
-  height: 100%;
-  width: 100%;
 }
 
 tr {
@@ -331,6 +327,7 @@ td {
   text-align: center;
   font-size: 3.5vmin;
   text-transform: uppercase;
+  padding: 0;
 }
 
 #keyboard {
