@@ -206,10 +206,11 @@ const showEndScreen = function (statistics) {
   });
 
   distributionBars.forEach((bar, i) => {
-    bar.style.paddingRight = `${
-      (statistics.guesses[i + 1] / gamesPlayed) * 100
+    bar.style.paddingLeft = `${
+      (statistics.guesses[i + 1] / gamesPlayed) * 85
     }%`;
     if (statistics.guesses[i + 1] !== 0) bar.style.backgroundColor = "#648c50";
+    else bar.style.backgroundColor = "#333333";
   });
 
   playAgainEl.addEventListener("click", startGame);
