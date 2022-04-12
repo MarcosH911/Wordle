@@ -273,18 +273,18 @@ header {
 }
 
 #message {
-  position: fixed;
+  position: absolute;
+  top: 10%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   background-color: white;
   color: #545454;
-  font-size: 2vmin;
-  width: 20%;
+  font-size: min(5vmin, 1.2rem);
   text-align: center;
-  padding: 1.5%;
+  padding: min(2vmin, 0.8rem) min(3.5vmin, 1.5rem);
   border-radius: 0.6rem;
-  top: 7.5%;
-  left: 38.5%;
   z-index: 2;
-  opacity: 0;
+  opacity: 100;
 }
 
 #game {
