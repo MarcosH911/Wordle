@@ -80,6 +80,7 @@
 @keyframes flip-green {
   0% {
     transform: rotateX(0deg);
+    border-color: white;
   }
 
   50% {
@@ -109,6 +110,7 @@
 @keyframes flip-yellow {
   0% {
     transform: rotateX(0deg);
+    border-color: white;
   }
 
   50% {
@@ -138,6 +140,7 @@
 @keyframes flip-grey {
   0% {
     transform: rotateX(0deg);
+    border-color: white;
   }
 
   50% {
@@ -222,7 +225,7 @@
 }
 
 .green {
-  background-color: green;
+  background-color: green !important;
 }
 
 .yellow {

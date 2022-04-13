@@ -46,7 +46,7 @@ const screenKeyboardCallback = function (e) {
   enterLetter(key.toLowerCase());
 };
 
-const startGame = function () {
+const newGame = function () {
   correctWord = WORD_LIST[Math.floor(Math.random() * WORD_LIST.length)];
 
   tableRow = 0;
@@ -78,6 +78,29 @@ const startGame = function () {
   });
 
   tableCellElements.forEach((ele) => (ele.textContent = ""));
+
+  keyboardEl.addEventListener("click", screenKeyboardCallback);
+
+  document.addEventListener("keydown", keyboardCallback);
+};
+
+const continueGame = function (board) {
+  correctWord = localStorage.getItem("solution");
+
+  window.localStorage.removeItem("board");
+
+  tableRow = 0;
+  tableCell = 0;
+  wordGuess = "";
+
+  statsModalEl.classList.add("hidden");
+  statsOverlayEl.classList.add("hidden");
+
+  for (let i = 0; i < board.length * 5; i++) {
+    tableCellElements[i].textContent = board.join("").charAt(i);
+  }
+
+  board.forEach((word) => submitWord(word));
 
   keyboardEl.addEventListener("click", screenKeyboardCallback);
 
@@ -121,21 +144,21 @@ const enterLetter = function (letter) {
   tableCell++;
 };
 
-const submitWord = function () {
-  if (!VALID_GUESSES.includes(wordGuess)) {
+const submitWord = function (word) {
+  if (!VALID_GUESSES.includes(word)) {
     notValidWord();
     return;
   }
 
   const board = JSON.parse(localStorage.getItem("board")) || [];
-  board.push(wordGuess);
+  board.push(word);
   localStorage.setItem("board", JSON.stringify(board));
 
-  if (wordGuess === correctWord) {
+  if (word === correctWord) {
     winGame();
   }
 
-  checkWord();
+  checkWord(word, tableRow);
 
   if (tableRow === 5) {
     setTimeout(function () {
@@ -213,7 +236,7 @@ const showEndScreen = function (statistics) {
     else bar.style.backgroundColor = "#333333";
   });
 
-  playAgainEl.addEventListener("click", startGame);
+  playAgainEl.addEventListener("click", newGame);
 };
 const gameEnd = function (message) {
   document.removeEventListener("keydown", keyboardCallback);
@@ -278,8 +301,8 @@ const winGame = function () {
   winAnimation();
 };
 
-const checkWord = function () {
-  const wordGuessArr = wordGuess.split("");
+const checkWord = function (word, row) {
+  const wordGuessArr = word.split("");
   const correctWordArr = correctWord.split("");
   const lettersInfo = {};
 
@@ -316,9 +339,7 @@ const checkWord = function () {
   }
 
   for (let i = 0; i < 5; i++) {
-    const keyEl = keyboardEl.querySelector(
-      `li[data-key='${wordGuess.charAt(i)}']`
-    );
+    const keyEl = keyboardEl.querySelector(`li[data-key='${word.charAt(i)}']`);
 
     if (
       !keyEl.classList.contains("green") &&
@@ -337,16 +358,16 @@ const checkWord = function () {
   for (const [i, [_, color]] of Object.entries(Object.entries(lettersInfo))) {
     if (+i === 5) return;
     setTimeout(() => {
-      tableCellElements[+i + (tableRow - 1) * 5].classList.add("white-border");
-      tableCellElements[+i + (tableRow - 1) * 5].classList.remove("put-letter");
-
-      tableCellElements[+i + (tableRow - 1) * 5].classList.add(`flip-${color}`);
+      tableCellElements[+i + row * 5].classList.remove("put-letter");
+      tableCellElements[+i + row * 5].classList.add(`flip-${color}`);
     }, flipDelay);
     flipDelay += 100;
   }
 };
 
 const init = function () {
-  startGame();
+  const board = JSON.parse(window.localStorage.getItem("board"));
+  if (!board) newGame();
+  else continueGame(board);
 };
 init();
